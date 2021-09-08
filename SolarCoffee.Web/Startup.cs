@@ -37,6 +37,7 @@ namespace SolarCoffee.Web
                         .UseNpgsql(Configuration
                             .GetConnectionString("solar.dev"));
                 });
+            services.AddTransient<IProductService, ProductService>();
             services
                 .AddSwaggerGen(c =>
                 {
