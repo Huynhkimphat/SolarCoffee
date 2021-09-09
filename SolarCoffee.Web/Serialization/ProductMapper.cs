@@ -4,9 +4,13 @@ namespace SolarCoffee.Web.Serialization
 {
     public static class ProductMapper
     {
-        // Maps a Product data model to a ProductModel View model
+        /// <summary>
+        /// Maps a Product data model to a ProductModel View model
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public static ProductModel
-        SerializationProductModel(Data.Models.Product product)
+        SerializeProductModel(Data.Models.Product product)
         {
             return new ProductModel {
                 Id = product.Id,
@@ -20,9 +24,13 @@ namespace SolarCoffee.Web.Serialization
             };
         }
 
-        // Maps a ProductModel View model to a Product data model
+        /// <summary>
+        /// Maps a ProductModel View model to a Product data model
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public static Data.Models.Product
-        SerializationProductModel(ProductModel product)
+        SerializeProductModel(ProductModel product)
         {
             return new Data.Models.Product {
                 Id = product.Id,
