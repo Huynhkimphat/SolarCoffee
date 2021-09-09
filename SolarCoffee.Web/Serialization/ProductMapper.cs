@@ -2,7 +2,7 @@ using SolarCoffee.Web.ViewModels;
 
 namespace SolarCoffee.Web.Serialization
 {
-    public class ProductMapper
+    public static class ProductMapper
     {
         // Maps a Product data model to a ProductModel View model
         public static ProductModel
