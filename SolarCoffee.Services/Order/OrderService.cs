@@ -16,15 +16,15 @@ namespace SolarCoffee.Services.Order
 
 		private readonly ILogger<OrderService> _logger;
 
-		private readonly ProductService _productService;
+		private readonly IProductService _productService;
 
-		private readonly InventoryService _inventoryService;
+		private readonly IInventoryService _inventoryService;
 
 		public OrderService(
 			SolarDbContext db,
 			ILogger<OrderService> logger,
-			ProductService productService,
-			InventoryService inventoryService
+			IProductService productService,
+			IInventoryService inventoryService
 		)
 		{
 			_db = db;

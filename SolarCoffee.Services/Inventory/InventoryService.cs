@@ -10,7 +10,7 @@ namespace SolarCoffee.Services.Inventory
 {
 	public class InventoryService : IInventoryService
 	{
-		private SolarDbContext _db;
+		private readonly SolarDbContext _db;
 
 		private readonly ILogger<InventoryService> _logger;
 
