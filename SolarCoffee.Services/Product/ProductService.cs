@@ -67,20 +67,22 @@ namespace SolarCoffee.Services.Product
                 product.IsArchived =true;
                 _db.SaveChanges();
 
-                return new ServiceResponse<Data.Models.Product>{
-                    Data=product,
-                    Time=DateTime.UtcNow,
-                    Message="Archived Product", 
-                    isSuccess=true
-                }
+                return new ServiceResponse<Data.Models.Product>
+                {
+                    Data = product,
+                    Time = DateTime.UtcNow,
+                    Message = "Archived Product",
+                    IsSuccess = true
+                };
             }
             catch(Exception e){
-                return new ServiceResponse<Data.Models.Product>{
-                    Data=null,
-                    Time=DateTime.UtcNow,
-                    Message=e.StackTrace, 
-                    isSuccess=false
-                }
+                return new ServiceResponse<Data.Models.Product>
+                {
+                    Data = null,
+                    Time = DateTime.UtcNow,
+                    Message = e.StackTrace,
+                    IsSuccess = false
+                };
             }
         }
     }

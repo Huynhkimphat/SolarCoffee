@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SolarCoffee.Data;
+using SolarCoffee.Services.Product;
 
 namespace SolarCoffee.Web
 {
