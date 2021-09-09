@@ -66,7 +66,7 @@ namespace SolarCoffee.Services.Customer
         /// <returns>ServiceResponse<bool></returns>
         public ServiceResponse<bool> DeleteCustomer(int id)
         {
-            var now =DateTime.UtcNow;
+            var now = DateTime.UtcNow;
             var customer = _db.Customers.Find(id);
             if (customer == null)
             {

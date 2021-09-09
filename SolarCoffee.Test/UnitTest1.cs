@@ -8,7 +8,6 @@ namespace SolarCoffee.Test
         [Fact]
         public void Test1()
         {
-
         }
     }
 }

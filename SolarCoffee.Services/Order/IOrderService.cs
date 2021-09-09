@@ -1,5 +1,5 @@
-using SolarCoffee.Data.Models;
 using System.Collections.Generic;
+using SolarCoffee.Data.Models;
 
 namespace SolarCoffee.Services.Order
 {

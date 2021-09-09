@@ -12,8 +12,7 @@ namespace SolarCoffee.Web.Serialization
         /// <returns></returns>
         public static CustomerModel SerializeCustomer(Customer customer)
         {
-            return new CustomerModel
-            {
+            return new CustomerModel {
                 Id = customer.Id,
                 CreateOn = customer.CreateOn,
                 UpdateOn = customer.UpdateOn,
@@ -29,14 +28,13 @@ namespace SolarCoffee.Web.Serialization
         /// <param name="customer"></param>
         /// <returns></returns>
         public static Customer SerializeCustomer(CustomerModel customer)
-		{
-            return new Customer
-            {
+        {
+            return new Customer {
                 CreateOn = customer.CreateOn,
                 UpdateOn = customer.UpdateOn,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
-                PrimaryAddress = MapCustomerAddress(customer.PrimaryAddress),
+                PrimaryAddress = MapCustomerAddress(customer.PrimaryAddress)
             };
         }
 
@@ -45,10 +43,10 @@ namespace SolarCoffee.Web.Serialization
         /// </summary>
         /// <param name="address"></param>
         /// <returns></returns>
-        private static CustomerAddressModel MapCustomerAddress(CustomerAddress address)
-		{
-            return new CustomerAddressModel
-            {
+        private static CustomerAddressModel
+        MapCustomerAddress(CustomerAddress address)
+        {
+            return new CustomerAddressModel {
                 AddressLine1 = address.AddressLine1,
                 AddressLine2 = address.AddressLine2,
                 AddressLine3 = address.AddressLine3,
@@ -57,19 +55,19 @@ namespace SolarCoffee.Web.Serialization
                 Country = address.Country,
                 PostalCode = address.PostalCode,
                 CreateOn = address.CreateOn,
-                UpdateOn = address.UpdateOn,
+                UpdateOn = address.UpdateOn
             };
-		}
+        }
 
         /// <summary>
         /// Maps a CustomerAddressModel view model to a CustomerAddress data model
         /// </summary>
         /// <param name="address"></param>
         /// <returns></returns>
-        private static CustomerAddress MapCustomerAddress(CustomerAddressModel address)
+        private static CustomerAddress
+        MapCustomerAddress(CustomerAddressModel address)
         {
-            return new CustomerAddress
-            {
+            return new CustomerAddress {
                 AddressLine1 = address.AddressLine1,
                 AddressLine2 = address.AddressLine2,
                 AddressLine3 = address.AddressLine3,
@@ -78,9 +76,8 @@ namespace SolarCoffee.Web.Serialization
                 Country = address.Country,
                 PostalCode = address.PostalCode,
                 CreateOn = address.CreateOn,
-                UpdateOn = address.UpdateOn,
+                UpdateOn = address.UpdateOn
             };
         }
-
     }
 }
