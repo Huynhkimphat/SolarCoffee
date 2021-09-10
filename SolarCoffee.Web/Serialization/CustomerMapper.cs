@@ -43,10 +43,11 @@ namespace SolarCoffee.Web.Serialization
         /// </summary>
         /// <param name="address"></param>
         /// <returns></returns>
-        private static CustomerAddressModel
+        public static CustomerAddressModel
         MapCustomerAddress(CustomerAddress address)
         {
             return new CustomerAddressModel {
+                Id=address.Id,
                 AddressLine1 = address.AddressLine1,
                 AddressLine2 = address.AddressLine2,
                 AddressLine3 = address.AddressLine3,
