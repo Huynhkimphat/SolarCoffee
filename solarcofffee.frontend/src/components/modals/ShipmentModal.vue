@@ -52,6 +52,7 @@ export default class ShipmentModal extends Vue {
     createOn: new Date(),
     updateOn: new Date(),
     id: 0,
+    name:"",
     description: "",
     isTaxable: false,
     price: 0,

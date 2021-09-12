@@ -8,16 +8,32 @@
       />
     </router-link>
     <h1>Management Portal</h1>
-    <solar-button id="menuInventory" :link="'/inventory'" isFullwidth>
+    <solar-button
+      id="menuInventory"
+      isFullwidth
+      @button:click="goToRoute('/inventory')"
+    >
       Inventory
     </solar-button>
-    <solar-button id="menuCustomer" :link="'/customer'" isFullwidth>
+    <solar-button
+      id="menuCustomer"
+      isFullwidth
+      @button:click="goToRoute('/customer')"
+    >
       Manage Customers
     </solar-button>
-    <solar-button id="menuInvoice" :link="'/invoice/new'" isFullwidth>
+    <solar-button
+      id="menuInvoice"
+      isFullwidth
+      @button:click="goToRoute('/invoice/new')"
+    >
       New Invoice
     </solar-button>
-    <solar-button id="menuOrders" :link="'/order'" isFullwidth>
+    <solar-button
+      id="menuOrders"
+      isFullwidth
+      @button:click="goToRoute('/orders')"
+    >
       Orders
     </solar-button>
   </div>
@@ -32,6 +48,9 @@ import { Component, Vue } from "vue-property-decorator";
   components: { SolarButton }
 })
 export default class SideMenu extends Vue {
+  goToRoute(route: string) {
+    this.$router.push(route);
+  }
 }
 </script>
 
