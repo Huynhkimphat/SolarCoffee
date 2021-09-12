@@ -16,7 +16,7 @@ namespace SolarCoffee.Services.Customer
         }
 
         /// <summary>
-        /// Return a list of Customers from database
+        ///     Return a list of Customers from database
         /// </summary>
         /// <returns>List<Customer></returns>
         public List<Data.Models.Customer> GetAllCustomers()
@@ -29,19 +29,20 @@ namespace SolarCoffee.Services.Customer
         }
 
         /// <summary>
-        /// Add new Customer record
+        ///     Add new Customer record
         /// </summary>
         /// <param name="customer">Customer Instance</param>
         /// <returns>ServiceResponse<Customer></returns>
         public ServiceResponse<Data.Models.Customer>
-        CreateCustomer(Data.Models.Customer customer)
+            CreateCustomer(Data.Models.Customer customer)
         {
             var now = DateTime.UtcNow;
             try
             {
-                _db.Customers.Add (customer);
+                _db.Customers.Add(customer);
                 _db.SaveChanges();
-                return new ServiceResponse<Data.Models.Customer> {
+                return new ServiceResponse<Data.Models.Customer>
+                {
                     Data = customer,
                     Time = now,
                     Message = "Saved new product",
@@ -50,7 +51,8 @@ namespace SolarCoffee.Services.Customer
             }
             catch (Exception e)
             {
-                return new ServiceResponse<Data.Models.Customer> {
+                return new ServiceResponse<Data.Models.Customer>
+                {
                     Data = null,
                     Time = now,
                     Message = e.StackTrace,
@@ -60,7 +62,7 @@ namespace SolarCoffee.Services.Customer
         }
 
         /// <summary>
-        /// Delete a customer record
+        ///     Delete a customer record
         /// </summary>
         /// <param name="id">int customer id</param>
         /// <returns>ServiceResponse<bool></returns>
@@ -69,19 +71,19 @@ namespace SolarCoffee.Services.Customer
             var now = DateTime.UtcNow;
             var customer = _db.Customers.Find(id);
             if (customer == null)
-            {
-                return new ServiceResponse<bool> {
+                return new ServiceResponse<bool>
+                {
                     Data = false,
                     Time = now,
                     Message = "Customer to delete not found",
                     IsSuccess = false
                 };
-            }
             try
             {
-                _db.Customers.Remove (customer);
+                _db.Customers.Remove(customer);
                 _db.SaveChanges();
-                return new ServiceResponse<bool> {
+                return new ServiceResponse<bool>
+                {
                     Data = true,
                     Time = now,
                     Message = "Customer Deleted",
@@ -90,7 +92,8 @@ namespace SolarCoffee.Services.Customer
             }
             catch (Exception e)
             {
-                return new ServiceResponse<bool> {
+                return new ServiceResponse<bool>
+                {
                     Data = false,
                     Time = now,
                     Message = e.StackTrace,
@@ -100,7 +103,7 @@ namespace SolarCoffee.Services.Customer
         }
 
         /// <summary>
-        /// Get a customer record By Primary Id
+        ///     Get a customer record By Primary Id
         /// </summary>
         /// <param name="id">int customer id</param>
         /// <returns>Customer</returns>

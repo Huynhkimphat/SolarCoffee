@@ -11,11 +11,9 @@ namespace SolarCoffee.Data.Models
 
         public DateTime UpdateOn { get; set; }
 
-        [MaxLength(64)]
-        public string Name { get; set; }
+        [MaxLength(64)] public string Name { get; set; }
 
-        [MaxLength(128)]
-        public string Description { get; set; }
+        [MaxLength(128)] public string Description { get; set; }
 
         public decimal Price { get; set; }
 

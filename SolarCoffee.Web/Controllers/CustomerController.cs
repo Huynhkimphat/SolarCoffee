@@ -1,29 +1,28 @@
+using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SolarCoffee.Services.Customer;
 using SolarCoffee.Web.Serialization;
 using SolarCoffee.Web.ViewModels;
-using System;
-using System.Linq;
 
 namespace SolarCoffee.Web.Controllers
 {
     [ApiController]
-    public class CustomerController : ControllerBase 
+    public class CustomerController : ControllerBase
     {
+        private readonly ICustomerService _customerService;
         private readonly ILogger<CustomerController> _logger;
 
-        private readonly ICustomerService _customerService;
-
-        public CustomerController(ILogger<CustomerController> logger,ICustomerService customerService)
-		{
+        public CustomerController(ILogger<CustomerController> logger, ICustomerService customerService)
+        {
             _logger = logger;
             _customerService = customerService;
-		}
+        }
 
         [HttpPost("/api/customer")]
         public ActionResult CreateCustomer([FromBody] CustomerModel customer)
-		{
+        {
             _logger.LogInformation("Creating a new customer");
             customer.CreateOn = DateTime.UtcNow;
             customer.UpdateOn = DateTime.UtcNow;
@@ -34,7 +33,7 @@ namespace SolarCoffee.Web.Controllers
 
         [HttpGet("/api/customer")]
         public ActionResult GetCustomers()
-		{
+        {
             _logger.LogInformation("Getting customers");
             var customers = _customerService.GetAllCustomers();
             var customerModels = customers
@@ -50,14 +49,14 @@ namespace SolarCoffee.Web.Controllers
                 .OrderByDescending(customer => customer.CreateOn)
                 .ToList();
             return Ok(customerModels);
-		}
+        }
 
         [HttpDelete("/api/customer/{id}")]
         public ActionResult DeleteCustomer(int id)
-		{
+        {
             _logger.LogInformation("Deleting a customer");
             var response = _customerService.DeleteCustomer(id);
             return Ok(response);
-		}
+        }
     }
 }

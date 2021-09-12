@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SolarCoffee.Data.Models;
@@ -8,12 +7,12 @@ using SolarCoffee.Web.ViewModels;
 namespace SolarCoffee.Web.Serialization
 {
     /// <summary>
-    /// Handles mapping Order data models to and from View Models
+    ///     Handles mapping Order data models to and from View Models
     /// </summary>
     public static class OrderMapper
     {
         /// <summary>
-        /// Maps on InvoiceModel view model to a SalesOrder data model
+        ///     Maps on InvoiceModel view model to a SalesOrder data model
         /// </summary>
         /// <param name="invoice"></param>
         /// <returns></returns>
@@ -23,7 +22,8 @@ namespace SolarCoffee.Web.Serialization
                 invoice
                     .LineItems
                     .Select(item =>
-                        new SalesOrderItem {
+                        new SalesOrderItem
+                        {
                             Id = item.Id,
                             Quantity = item.Quantity,
                             Product =
@@ -31,7 +31,8 @@ namespace SolarCoffee.Web.Serialization
                                     .SerializeProductModel(item.Product)
                         })
                     .ToList();
-            return new SalesOrder {
+            return new SalesOrder
+            {
                 SalesOrderItems = saleOrderItems,
                 CreateOn = DateTime.UtcNow,
                 UpdateOn = DateTime.UtcNow
@@ -39,16 +40,17 @@ namespace SolarCoffee.Web.Serialization
         }
 
         /// <summary>
-        /// Maps a collection of SalesOrders (data) to OrderModels (view models)
+        ///     Maps a collection of SalesOrders (data) to OrderModels (view models)
         /// </summary>
         /// <param name="orders"></param>
         /// <returns></returns>
         public static List<OrderModel>
-        SerializeOrderToViewModels(IEnumerable<SalesOrder> orders)
+            SerializeOrderToViewModels(IEnumerable<SalesOrder> orders)
         {
             return orders
                 .Select(order =>
-                    new OrderModel {
+                    new OrderModel
+                    {
                         Id = order.Id,
                         CreateOn = order.CreateOn,
                         UpdateOn = order.UpdateOn,
@@ -62,16 +64,17 @@ namespace SolarCoffee.Web.Serialization
         }
 
         /// <summary>
-        /// Maps a collection of SalesOrderItems (data) to SalesOrderItemsModels (view models)
+        ///     Maps a collection of SalesOrderItems (data) to SalesOrderItemsModels (view models)
         /// </summary>
         /// <param name="orderItems"></param>
         /// <returns></returns>
         private static List<SalesOrderItemModel>
-        SerializeSalesOrderItems(IEnumerable<SalesOrderItem> orderItems)
+            SerializeSalesOrderItems(IEnumerable<SalesOrderItem> orderItems)
         {
             return orderItems
                 .Select(item =>
-                    new SalesOrderItemModel {
+                    new SalesOrderItemModel
+                    {
                         Id = item.Id,
                         Quantity = item.Quantity,
                         Product =

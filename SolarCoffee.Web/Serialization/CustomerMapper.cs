@@ -6,13 +6,14 @@ namespace SolarCoffee.Web.Serialization
     public class CustomerMapper
     {
         /// <summary>
-        /// Seriralize a Customer data model into a CustomerModel view model
+        ///     Seriralize a Customer data model into a CustomerModel view model
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
         public static CustomerModel SerializeCustomer(Customer customer)
         {
-            return new CustomerModel {
+            return new CustomerModel
+            {
                 Id = customer.Id,
                 CreateOn = customer.CreateOn,
                 UpdateOn = customer.UpdateOn,
@@ -23,13 +24,14 @@ namespace SolarCoffee.Web.Serialization
         }
 
         /// <summary>
-        /// Seriralize a CustomerModel view model into a Customer data model
+        ///     Seriralize a CustomerModel view model into a Customer data model
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
         public static Customer SerializeCustomer(CustomerModel customer)
         {
-            return new Customer {
+            return new Customer
+            {
                 CreateOn = customer.CreateOn,
                 UpdateOn = customer.UpdateOn,
                 FirstName = customer.FirstName,
@@ -39,15 +41,16 @@ namespace SolarCoffee.Web.Serialization
         }
 
         /// <summary>
-        /// Maps a CustomerAddress data model to a CustomerAddressModel view model
+        ///     Maps a CustomerAddress data model to a CustomerAddressModel view model
         /// </summary>
         /// <param name="address"></param>
         /// <returns></returns>
         public static CustomerAddressModel
-        MapCustomerAddress(CustomerAddress address)
+            MapCustomerAddress(CustomerAddress address)
         {
-            return new CustomerAddressModel {
-                Id=address.Id,
+            return new CustomerAddressModel
+            {
+                Id = address.Id,
                 AddressLine1 = address.AddressLine1,
                 AddressLine2 = address.AddressLine2,
                 AddressLine3 = address.AddressLine3,
@@ -61,14 +64,15 @@ namespace SolarCoffee.Web.Serialization
         }
 
         /// <summary>
-        /// Maps a CustomerAddressModel view model to a CustomerAddress data model
+        ///     Maps a CustomerAddressModel view model to a CustomerAddress data model
         /// </summary>
         /// <param name="address"></param>
         /// <returns></returns>
         private static CustomerAddress
-        MapCustomerAddress(CustomerAddressModel address)
+            MapCustomerAddress(CustomerAddressModel address)
         {
-            return new CustomerAddress {
+            return new CustomerAddress
+            {
                 AddressLine1 = address.AddressLine1,
                 AddressLine2 = address.AddressLine2,
                 AddressLine3 = address.AddressLine3,

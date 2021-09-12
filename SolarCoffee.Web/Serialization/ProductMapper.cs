@@ -1,3 +1,4 @@
+using SolarCoffee.Data.Models;
 using SolarCoffee.Web.ViewModels;
 
 namespace SolarCoffee.Web.Serialization
@@ -5,14 +6,15 @@ namespace SolarCoffee.Web.Serialization
     public static class ProductMapper
     {
         /// <summary>
-        /// Maps a Product data model to a ProductModel View model
+        ///     Maps a Product data model to a ProductModel View model
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>
         public static ProductModel
-        SerializeProductModel(Data.Models.Product product)
+            SerializeProductModel(Product product)
         {
-            return new ProductModel {
+            return new ProductModel
+            {
                 Id = product.Id,
                 CreateOn = product.CreateOn,
                 UpdateOn = product.UpdateOn,
@@ -25,14 +27,15 @@ namespace SolarCoffee.Web.Serialization
         }
 
         /// <summary>
-        /// Maps a ProductModel View model to a Product data model
+        ///     Maps a ProductModel View model to a Product data model
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>
-        public static Data.Models.Product
-        SerializeProductModel(ProductModel product)
+        public static Product
+            SerializeProductModel(ProductModel product)
         {
-            return new Data.Models.Product {
+            return new Product
+            {
                 Id = product.Id,
                 CreateOn = product.CreateOn,
                 UpdateOn = product.UpdateOn,

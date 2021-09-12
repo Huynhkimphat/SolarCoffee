@@ -1,8 +1,8 @@
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SolarCoffee.Services.Product;
 using SolarCoffee.Web.Serialization;
-using System.Linq;
 
 namespace SolarCoffee.Web.Controllers
 {
@@ -34,12 +34,12 @@ namespace SolarCoffee.Web.Controllers
             return Ok(productViewModels);
         }
 
-		[HttpPatch("/api/product/{id}")]
-		public ActionResult ArchiveProduct(int id)
-		{
+        [HttpPatch("/api/product/{id}")]
+        public ActionResult ArchiveProduct(int id)
+        {
             _logger.LogInformation("Archiving product");
-            var archiveResult=_productService.ArchiveProduct(id);
-			return Ok(archiveResult);
-		}
-	}
+            var archiveResult = _productService.ArchiveProduct(id);
+            return Ok(archiveResult);
+        }
+    }
 }

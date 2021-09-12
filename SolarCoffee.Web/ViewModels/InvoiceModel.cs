@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace SolarCoffee.Web.ViewModels
 {
     /// <summary>
-    /// View model for open SalesOrders
+    ///     View model for open SalesOrders
     /// </summary>
     public class InvoiceModel
     {
@@ -20,7 +20,7 @@ namespace SolarCoffee.Web.ViewModels
     }
 
     /// <summary>
-    /// View model for SalesOrderItems
+    ///     View model for SalesOrderItems
     /// </summary>
     public class SalesOrderItemModel
     {

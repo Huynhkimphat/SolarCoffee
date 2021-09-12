@@ -66,47 +66,18 @@ import SolarButton from "@/components/SolarButton.vue";
 import ShipmentModal from "@/components/modals/ShipmentModal.vue";
 import NewProductModal from "@/components/modals/NewProductModal.vue";
 import { IShipment } from "@/types/Shipment";
+import { InventoryService } from "@/services/inventory-service";
 
+const inventoryService=new InventoryService();
 @Component({
   name: "Inventory",
   components: { SolarButton, ShipmentModal, NewProductModal }
 })
 export default class Inventory extends Vue {
-  isNewProductVisible= false;
+  isNewProductVisible = false;
   isShipmentVisible = false;
 
-  inventory: IProductInventory[] = [
-    {
-      id: 1,
-      product: {
-        id: 1,
-        name: "Some Products",
-        createOn: new Date(),
-        updateOn: new Date(),
-        description: "Good Stuff",
-        price: 100,
-        isTaxable: true,
-        isArchived: false
-      },
-      quantityOnHand: 100,
-      idealQuantity: 100
-    },
-    {
-      id: 2,
-      product: {
-        id: 2,
-        name: "Another Products 2",
-        createOn: new Date(),
-        updateOn: new Date(),
-        description: "Good Stuff",
-        price: 100,
-        isTaxable: true,
-        isArchived: false
-      },
-      quantityOnHand: 40,
-      idealQuantity: 20
-    }
-  ];
+  inventory: IProductInventory[] = [];
 
   closeModals() {
     this.isNewProductVisible = false;
@@ -122,15 +93,23 @@ export default class Inventory extends Vue {
 
   }
 
-  saveNewProduct(newProduct:IProduct) {
-    console.log('SaveNewProduct');
+  saveNewProduct(newProduct: IProduct) {
+    console.log("SaveNewProduct");
     console.log(newProduct);
 
   }
 
-  saveNewShipment(shipment:IShipment) {
-    console.log('SaveNewShipment');
+  saveNewShipment(shipment: IShipment) {
+    console.log("SaveNewShipment");
     console.log(shipment);
+  }
+
+  async initialize() {
+      this.inventory=await inventoryService.getInventory();
+  }
+
+  async created() {
+    await this.initialize();
   }
 
 }

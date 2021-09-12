@@ -24,7 +24,7 @@ namespace SolarCoffee.Services.Inventory
         }
 
         /// <summary>
-        /// Return all current inventory from the database
+        ///     Return all current inventory from the database
         /// </summary>
         /// <returns></returns>
         public List<ProductInventory> GetCurrenInventory()
@@ -37,14 +37,14 @@ namespace SolarCoffee.Services.Inventory
         }
 
         /// <summary>
-        /// Updates number of units available of the provided product id
-        /// Adjust QuantityOnHand by adjustment value
+        ///     Updates number of units available of the provided product id
+        ///     Adjust QuantityOnHand by adjustment value
         /// </summary>
         /// <param name="id">productId</param>
         /// <param name="adjustment">number of units added / removed from inventory</param>
         /// <returns>ServiceResponse<ProductInventory></returns>
         public ServiceResponse<ProductInventory>
-        UpdateUnitsAvailable(int id, int adjustment)
+            UpdateUnitsAvailable(int id, int adjustment)
         {
             var now = DateTime.UtcNow;
             try
@@ -59,7 +59,7 @@ namespace SolarCoffee.Services.Inventory
 
                 try
                 {
-                    CreateSnapshot (inventory);
+                    CreateSnapshot(inventory);
                 }
                 catch (Exception e)
                 {
@@ -69,7 +69,8 @@ namespace SolarCoffee.Services.Inventory
 
                 _db.SaveChanges();
 
-                return new ServiceResponse<ProductInventory> {
+                return new ServiceResponse<ProductInventory>
+                {
                     IsSuccess = true,
                     Time = now,
                     Data = inventory,
@@ -78,7 +79,8 @@ namespace SolarCoffee.Services.Inventory
             }
             catch
             {
-                return new ServiceResponse<ProductInventory> {
+                return new ServiceResponse<ProductInventory>
+                {
                     IsSuccess = false,
                     Time = now,
                     Data = null,
@@ -88,7 +90,7 @@ namespace SolarCoffee.Services.Inventory
         }
 
         /// <summary>
-        /// Gets a ProductInventory instance by Product ID
+        ///     Gets a ProductInventory instance by Product ID
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -101,7 +103,7 @@ namespace SolarCoffee.Services.Inventory
         }
 
         /// <summary>
-        /// Return Snapshot history for the previous 6 hours
+        ///     Return Snapshot history for the previous 6 hours
         /// </summary>
         /// <returns></returns>
         public List<ProductInventorySnapshot> GetSnapshotsHistory()
@@ -116,19 +118,20 @@ namespace SolarCoffee.Services.Inventory
         }
 
         /// <summary>
-        /// Create a Snapshot record using the provided ProductInventory instance
+        ///     Create a Snapshot record using the provided ProductInventory instance
         /// </summary>
         /// <param name="inventory"></param>
         private void CreateSnapshot(ProductInventory inventory)
         {
             var now = DateTime.UtcNow;
             var snapshot =
-                new ProductInventorySnapshot {
+                new ProductInventorySnapshot
+                {
                     SnapshotTime = now,
                     Product = inventory.Product,
                     QuantityOnHand = inventory.QuantityOnHand
                 };
-            _db.Add (snapshot);
+            _db.Add(snapshot);
         }
     }
 }

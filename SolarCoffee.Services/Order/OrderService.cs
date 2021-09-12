@@ -14,11 +14,11 @@ namespace SolarCoffee.Services.Order
     {
         private readonly SolarDbContext _db;
 
+        private readonly IInventoryService _inventoryService;
+
         private readonly ILogger<OrderService> _logger;
 
         private readonly IProductService _productService;
-
-        private readonly IInventoryService _inventoryService;
 
         public OrderService(
             SolarDbContext db,
@@ -34,7 +34,7 @@ namespace SolarCoffee.Services.Order
         }
 
         /// <summary>
-        /// Gets all SalesOrder in the system
+        ///     Gets all SalesOrder in the system
         /// </summary>
         /// <returns></returns>
         public List<SalesOrder> GetOrders()
@@ -49,7 +49,7 @@ namespace SolarCoffee.Services.Order
         }
 
         /// <summary>
-        /// Create an open SalesOrder
+        ///     Create an open SalesOrder
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
@@ -71,11 +71,13 @@ namespace SolarCoffee.Services.Order
                 _inventoryService
                     .UpdateUnitsAvailable(inventoryId, -item.Quantity);
             }
+
             try
             {
-                _db.SalesOrders.Add (order);
+                _db.SalesOrders.Add(order);
                 _db.SaveChanges();
-                return new ServiceResponse<bool> {
+                return new ServiceResponse<bool>
+                {
                     IsSuccess = true,
                     Data = true,
                     Time = now,
@@ -84,7 +86,8 @@ namespace SolarCoffee.Services.Order
             }
             catch (Exception e)
             {
-                return new ServiceResponse<bool> {
+                return new ServiceResponse<bool>
+                {
                     IsSuccess = false,
                     Data = false,
                     Time = now,
@@ -94,7 +97,7 @@ namespace SolarCoffee.Services.Order
         }
 
         /// <summary>
-        /// Marks an open SalesOrder as paid
+        ///     Marks an open SalesOrder as paid
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -106,9 +109,10 @@ namespace SolarCoffee.Services.Order
             order.IsPaid = true;
             try
             {
-                _db.SalesOrders.Update (order);
+                _db.SalesOrders.Update(order);
                 _db.SaveChanges();
-                return new ServiceResponse<bool> {
+                return new ServiceResponse<bool>
+                {
                     IsSuccess = true,
                     Data = true,
                     Message = $"Order {order.Id} Closed: Invoice paid in full.",
@@ -117,7 +121,8 @@ namespace SolarCoffee.Services.Order
             }
             catch (Exception e)
             {
-                return new ServiceResponse<bool> {
+                return new ServiceResponse<bool>
+                {
                     IsSuccess = false,
                     Data = false,
                     Message = e.StackTrace,

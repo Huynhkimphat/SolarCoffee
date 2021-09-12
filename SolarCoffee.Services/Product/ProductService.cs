@@ -16,7 +16,7 @@ namespace SolarCoffee.Services.Product
         }
 
         /// <summary>
-        /// Retrieves All Product from database
+        ///     Retrieves All Product from database
         /// </summary>
         /// <returns>List<Product></returns>
         public List<Data.Models.Product> GetAllProducts()
@@ -25,7 +25,7 @@ namespace SolarCoffee.Services.Product
         }
 
         /// <summary>
-        /// Retrieves a Product frm the database by primary key
+        ///     Retrieves a Product frm the database by primary key
         /// </summary>
         /// <returns>Product</returns>
         public Data.Models.Product GetProductById(int id)
@@ -34,25 +34,25 @@ namespace SolarCoffee.Services.Product
         }
 
         /// <summary>
-        /// Adds a new product to the database
+        ///     Adds a new product to the database
         /// </summary>
         /// <param name="product"></param>
         /// <returns>ServiceResponse<Product></returns>
         public ServiceResponse<Data.Models.Product>
-        CreateProduct(Data.Models.Product product)
+            CreateProduct(Data.Models.Product product)
         {
             var now = DateTime.UtcNow;
             try
             {
-                _db.Products.Add (product);
+                _db.Products.Add(product);
 
                 var newInventory =
-                    new ProductInventory()
-                    { Product = product, QuantityOnHand = 0, IdealOnHand = 10 };
+                    new ProductInventory {Product = product, QuantityOnHand = 0, IdealOnHand = 10};
 
-                _db.ProductInventories.Add (newInventory);
+                _db.ProductInventories.Add(newInventory);
                 _db.SaveChanges();
-                return new ServiceResponse<Data.Models.Product> {
+                return new ServiceResponse<Data.Models.Product>
+                {
                     Data = product,
                     Time = now,
                     Message = "Saved new product",
@@ -61,7 +61,8 @@ namespace SolarCoffee.Services.Product
             }
             catch (Exception e)
             {
-                return new ServiceResponse<Data.Models.Product> {
+                return new ServiceResponse<Data.Models.Product>
+                {
                     Data = product,
                     Time = now,
                     Message = e.StackTrace,
@@ -71,7 +72,7 @@ namespace SolarCoffee.Services.Product
         }
 
         /// <summary>
-        /// Archives a Product by setting boolean IsArchived to true
+        ///     Archives a Product by setting boolean IsArchived to true
         /// </summary>
         /// <param name="id"></param>
         /// <returns>ServiceResponse<Product></returns>
@@ -84,7 +85,8 @@ namespace SolarCoffee.Services.Product
                 product.IsArchived = true;
                 _db.SaveChanges();
 
-                return new ServiceResponse<Data.Models.Product> {
+                return new ServiceResponse<Data.Models.Product>
+                {
                     Data = product,
                     Time = now,
                     Message = "Archived Product",
@@ -93,7 +95,8 @@ namespace SolarCoffee.Services.Product
             }
             catch (Exception e)
             {
-                return new ServiceResponse<Data.Models.Product> {
+                return new ServiceResponse<Data.Models.Product>
+                {
                     Data = null,
                     Time = now,
                     Message = e.StackTrace,
