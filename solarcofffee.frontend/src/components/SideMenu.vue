@@ -1,16 +1,14 @@
 <template>
   <div class="side-menu-container">
-    <img
-      id="imgLogo"
-      alt="Solar Coffee Logo"
-      src="../assets/images/SolarCoffeeLogo.png"
-    />
+    <router-link to="/">
+      <img
+        id="imgLogo"
+        alt="Solar Coffee Logo"
+        src="../assets/images/SolarCoffeeLogo.png"
+      />
+    </router-link>
     <h1>Management Portal</h1>
-    <solar-button
-      id="menuInventory"
-      :link="'/inventory'"
-      isFullwidth
-    >
+    <solar-button id="menuInventory" :link="'/inventory'" isFullwidth>
       Inventory
     </solar-button>
     <solar-button id="menuCustomer" :link="'/customer'" isFullwidth>
@@ -31,13 +29,15 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component({
   name: "SideMenu",
-  components: { SolarButton },
+  components: { SolarButton }
 })
-export default class SideMenu extends Vue {}
+export default class SideMenu extends Vue {
+}
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "../scss/global.scss";
+
 .side-menu-container {
   background-color: #fcfcfc;
   height: 100vh;
@@ -52,6 +52,7 @@ export default class SideMenu extends Vue {}
 #imgLogo {
   width: 100%;
 }
+
 h1 {
   font-size: 1.2rem;
   margin: 1rem 0;

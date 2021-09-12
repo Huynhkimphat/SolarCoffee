@@ -1,8 +1,18 @@
 <template>
   <div class="btn-link">
     <button
-      @click="visitRoute"
+      v-if="link"
       :class="['solar-button', { fullWidth: isFullwidth }]"
+      type="button"
+      @click="visitRoute"
+    >
+      <slot></slot>
+    </button>
+    <button
+      v-else
+      :class="['solar-button', { fullWidth: isFullwidth }]"
+      type="button"
+      @click="onClick"
     >
       <slot></slot>
     </button>
@@ -14,7 +24,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   name: "SolarButton",
-  components: {},
+  components: {}
 })
 export default class SolarButton extends Vue {
   @Prop({ required: false, type: String }) link?: string;
@@ -24,11 +34,16 @@ export default class SolarButton extends Vue {
   visitRoute() {
     this.$router.push({ path: this.link });
   }
+
+  onClick() {
+    this.$emit("button:click");
+  }
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 @import "../scss/global.scss";
+
 .solar-button {
   background: lighten($solar-blue, 10%);
   color: white;
@@ -42,19 +57,23 @@ export default class SolarButton extends Vue {
   border: none;
   border-bottom: 2px solid darken($solar-blue, 20%);
   border-radius: 3px;
+
   &:hover {
     background: lighten($solar-blue, 20%);
     transition: background-color 0.5s;
   }
+
   &:disabled {
     background: lighten($solar-blue, 15%);
     border-bottom: 2px solid lighten($solar-blue, 20%);
   }
+
   &:active {
     background: $solar-blue;
     border-bottom: 2px solid lighten($solar-blue, 20%);
   }
 }
+
 .fullWidth {
   display: block;
   width: 100%;

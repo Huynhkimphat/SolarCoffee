@@ -44,5 +44,9 @@ a {
     margin: 1rem auto 1rem $menu-width;
     text-align: left;
   }
+  hr{
+    border:1px solid #eee;
+    margin:1rem 0;
+  }
 }
 </style>
