@@ -82,13 +82,13 @@ export default class SolarModal extends Vue {
 }
 
 .modal-fade-enter,
-.modal-fade-leave-enter {
+.modal-fade-leave-active {
   opacity: 0;
 }
 
 .modal-fade-enter-active,
 .modal-fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity .5s ease;
 }
 
 </style>
