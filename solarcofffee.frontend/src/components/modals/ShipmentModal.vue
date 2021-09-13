@@ -3,7 +3,6 @@
     <template v-slot:header> Receive Shipment</template>
     <template v-slot:body>
       <label for="product">Product Received: </label>
-
       <select id="product" v-model="selectedProduct" class="shipmentItems">
         <option disabled value="">Please Select One</option>
         <option v-for="item in inventory" :key="item.product.id" :value="item">
@@ -56,7 +55,7 @@ export default class ShipmentModal extends Vue {
     description: "",
     isTaxable: false,
     price: 0,
-    isArchived: false
+    isArchived: false,
   };
 
   qtyReceived = 0;
@@ -67,10 +66,10 @@ export default class ShipmentModal extends Vue {
 
   save() {
     let shipment: IShipment = {
-      productId: this.selectedProduct.id,
+      productId: this.selectedProduct.product.id,
       adjustment: this.qtyReceived
     };
-    this.$emit("save:shipment",shipment)
+    this.$emit("save:shipment",shipment);
   }
 }
 </script>

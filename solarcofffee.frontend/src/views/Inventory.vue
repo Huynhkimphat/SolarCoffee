@@ -68,7 +68,7 @@ import NewProductModal from "@/components/modals/NewProductModal.vue";
 import { IShipment } from "@/types/Shipment";
 import { InventoryService } from "@/services/inventory-service";
 
-const inventoryService=new InventoryService();
+const inventoryService = new InventoryService();
 @Component({
   name: "Inventory",
   components: { SolarButton, ShipmentModal, NewProductModal }
@@ -90,22 +90,20 @@ export default class Inventory extends Vue {
 
   showShipmentModal() {
     this.isShipmentVisible = true;
-
   }
 
   saveNewProduct(newProduct: IProduct) {
     console.log("SaveNewProduct");
     console.log(newProduct);
-
   }
 
-  saveNewShipment(shipment: IShipment) {
-    console.log("SaveNewShipment");
-    console.log(shipment);
+  async saveNewShipment(shipment: IShipment) {
+    await inventoryService.updateInventoryQuantity(shipment);
+    this.isShipmentVisible = false;
+    await this.initialize();
   }
-
   async initialize() {
-      this.inventory=await inventoryService.getInventory();
+    this.inventory = await inventoryService.getInventory();
   }
 
   async created() {
