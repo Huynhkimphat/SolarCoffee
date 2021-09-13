@@ -27,14 +27,14 @@
       <solar-button
         aria-label="save new item"
         type="button"
-        @click.native="save"
+        @button:click="save"
       >
         Save Product
       </solar-button>
       <solar-button
         aria-label="close modal"
         type="button"
-        @click.native="close"
+        @button:click="close"
       >
         Close
       </solar-button>
