@@ -10,14 +10,14 @@ namespace SolarCoffee.Web.Controllers
     [ApiController]
     public class InventoryController : ControllerBase
     {
-        private readonly IInventoryService _inventryService;
+        private readonly IInventoryService _inventoryService;
         private readonly ILogger<InventoryController> _logger;
 
         public InventoryController(
             ILogger<InventoryController> logger, IInventoryService inventoryService)
         {
             _logger = logger;
-            _inventryService = inventoryService;
+            _inventoryService = inventoryService;
         }
 
         [HttpGet("/api/inventory")]
@@ -25,7 +25,7 @@ namespace SolarCoffee.Web.Controllers
         {
             _logger.LogInformation("Getting all inventory...");
 
-            var inventory = _inventryService.GetCurrenInventory()
+            var inventory = _inventoryService.GetCurrenInventory()
                 .Select(pi => new ProductInventoryModel
                 {
                     Id = pi.Id,
@@ -47,7 +47,7 @@ namespace SolarCoffee.Web.Controllers
             _logger.LogInformation($"Updating inventory for {shipment.ProductId} - Adjustment: {shipment.Adjustment}");
             var id = shipment.ProductId;
             var adjustment = shipment.Adjustment;
-            var inventory = _inventryService.UpdateUnitsAvailable(id, adjustment);
+            var inventory = _inventoryService.UpdateUnitsAvailable(id, adjustment);
             return Ok(inventory);
         }
     }
