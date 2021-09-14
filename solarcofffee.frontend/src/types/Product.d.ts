@@ -11,7 +11,7 @@ export interface IProduct {
 
 export interface IProductInventory {
   id: number;
-  product: IProdcut;
+  product: IProduct;
   quantityOnHand: number;
   idealQuantity: number;
 }

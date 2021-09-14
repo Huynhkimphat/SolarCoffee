@@ -47,7 +47,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import SolarButton from "@/components/SolarButton";
+import SolarButton from '@/components/SolarButton';
 import { ICustomer } from "@/types/Customer";
 import CustomerService from "@/services/customer-service";
 import NewCustomerModal from "@/components/modals/NewCustomerModal.vue";
