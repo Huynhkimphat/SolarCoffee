@@ -33,7 +33,7 @@ namespace SolarCoffee.Web.Controllers
             {
                 return BadRequest(ModelState);
             }
-            _logger.LogInformation("Generating invoice");
+            _logger.LogInformation("Generating order");
             var order = OrderMapper.SerializeInvoiceToOrder(invoice);
             order.Customer =
                 _customerService.GetCustomerById(invoice.CustomerId);

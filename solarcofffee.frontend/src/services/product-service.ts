@@ -14,7 +14,6 @@ export class ProductService {
   }
 
   public async save(newProduct: IProduct) {
-    console.log(newProduct);
     const result=await axios.post(`${this.API_URL}/product/`,newProduct);
     return result.data;
   }

@@ -24,7 +24,7 @@ namespace SolarCoffee.Web.Controllers
         }
 
         /// <summary>
-        ///     Return all products
+        ///     Add new Product
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>

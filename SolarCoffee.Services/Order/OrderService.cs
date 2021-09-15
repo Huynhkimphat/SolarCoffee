@@ -63,13 +63,13 @@ namespace SolarCoffee.Services.Order
             {
                 item.Product = _productService.GetProductById(item.Product.Id);
 
-                var inventoryId =
-                    _inventoryService
-                        .GetInventoryByProductId(item.Product.Id)
-                        .Id;
+                // var inventoryId =
+                //     _inventoryService
+                //         .GetInventoryByProductId(item.Product.Id)
+                //         .Id;
 
                 _inventoryService
-                    .UpdateUnitsAvailable(inventoryId, -item.Quantity);
+                    .UpdateUnitsAvailable(item.Product.Id, -item.Quantity);
             }
 
             try

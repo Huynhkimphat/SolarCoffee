@@ -16,7 +16,7 @@ export default class InvoiceService {
     const now = new Date();
     invoice.createOn = now;
     invoice.updateOn = now;
-    const result = await axios.post(`${this.API_URL}/invoice`,invoice);
+    const result = await axios.post(`${this.API_URL}/order`,invoice);
     return result.data;
   }
 }
