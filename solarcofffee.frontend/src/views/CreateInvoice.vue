@@ -80,7 +80,86 @@
         </table>
       </div>
     </div>
-    <div v-if="invoiceStep === 3" class="invoice-step"></div>
+    <div v-if="invoiceStep === 3" class="invoice-step">
+      <h2>Step 3: Review and Submit</h2>
+      <solar-button @button:click="submitInvoice">Submit Invoice</solar-button>
+      <hr />
+      <div id="invoice" ref="invoice" class="invoice-step-detail">
+        <div class="invoice-logo">
+          <img
+            id="imgLogo"
+            alt="SolarCoffeeLogo"
+            src="../assets/images/SolarCoffeeLogo.png"
+          />
+          <h3>1337 Solar Lane</h3>
+          <h3>San Somewhere, CA 90000</h3>
+          <h3>USA</h3>
+          <div v-if="lineItems.length" class="invoice-order-list">
+            <div class="invoice-header">
+              <h3>Invoice: {{ new Date() | humanizeDate }}</h3>
+              <h3>
+                Customer:
+                {{
+                  this.selectedCustomer.firstName +
+                  " " +
+                  this.selectedCustomer.lastName
+                }}
+              </h3>
+              <h3>
+                Address: {{ this.selectedCustomer.primaryAddress.addressLine1 }}
+              </h3>
+              <h3 v-if="this.selectedCustomer.primaryAddress.addressLine2">
+                Address: {{ this.selectedCustomer.primaryAddress.addressLine2 }}
+              </h3>
+              <h3 v-if="this.selectedCustomer.primaryAddress.addressLine3">
+                Address: {{ this.selectedCustomer.primaryAddress.addressLine3 }}
+              </h3>
+              <h3>
+                {{ this.selectedCustomer.primaryAddress.city }}
+                {{ this.selectedCustomer.primaryAddress.state }}
+                {{ this.selectedCustomer.primaryAddress.postalCode }}
+              </h3>
+              <h3>
+                {{ this.selectedCustomer.primaryAddress.country }}
+              </h3>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Description</th>
+                  <th>Qty.</th>
+                  <th>Price</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tr
+                v-for="lineItem in lineItems"
+                :key="`index_${lineItem.product.id}`"
+              >
+                <td>{{ lineItem.product.name }}</td>
+                <td>{{ lineItem.product.description }}</td>
+                <td>{{ lineItem.quantity }}</td>
+                <td>{{ lineItem.product.price }}</td>
+                <td>
+                  {{ (lineItem.product.price * lineItem.quantity) | price }}
+                </td>
+              </tr>
+              <tr>
+                <th colspan="4"></th>
+                <th>Grand Total</th>
+              </tr>
+              <tfoot>
+                <tr>
+                  <td class="due" colspan="4">Balance due upon receipt:</td>
+                  <td class="price-final">{{ runningTotal | price }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
     <hr />
     <div class="invoice-step-action">
       <solar-button :disabled="!canGoPrev" @button:click="prev"
@@ -103,6 +182,8 @@ import CustomerService from "@/services/customer-service";
 import { InventoryService } from "@/services/inventory-service";
 import InvoiceService from "@/services/invoice-service";
 import SolarButton from "@/components/SolarButton.vue";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const customerService = new CustomerService();
 const inventoryService = new InventoryService();
@@ -150,10 +231,19 @@ export default class CreateInvoice extends Vue {
     );
   }
 
+  get selectedCustomer() {
+    return this.customers.find((c) => c.id == this.selectedCustomerId);
+  }
+
   startOver(): void {
-    this.invoice = { customerId: 0, lineItems: [] };
-    this.selectedCustomerId=0;
-    this.lineItems=[];
+    this.invoice = {
+      customerId: 0,
+      lineItems: [],
+      createOn: new Date(),
+      updateOn: new Date(),
+    };
+    this.selectedCustomerId = 0;
+    this.lineItems = [];
     this.invoiceStep = 1;
   }
 
@@ -202,6 +292,42 @@ export default class CreateInvoice extends Vue {
   async created() {
     await this.initialize();
   }
+
+  async submitInvoice(): Promise<void> {
+    this.invoice = {
+      customerId: this.selectedCustomerId,
+      lineItems: this.lineItems,
+      createOn: new Date(),
+      updateOn: new Date(),
+    };
+    await invoiceService.makeNewInvoice(this.invoice);
+
+    this.downloadPdf();
+    await this.$router.push("/orders");
+  }
+
+  downloadPdf() {
+    let pdf = new jsPDF("p", "pt", "a4", true);
+    let invoice = document.getElementById("invoice");
+    // let width=this.$refs.invoice.clientWidth;
+    // let height=this.$refs.invoice.clientHeight;
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    html2canvas(invoice).then((canvas) => {
+      let image = canvas.toDataURL("image/png");
+      const widthRatio = pageWidth / canvas.width;
+      const heightRatio = pageHeight / canvas.height;
+      const ratio = widthRatio > heightRatio ? heightRatio : widthRatio;
+
+      const canvasWidth = canvas.width * ratio;
+      const canvasHeight = canvas.height * ratio;
+
+      const marginX = (pageWidth - canvasWidth) / 2;
+      const marginY = (pageHeight - canvasHeight) / 2;
+      pdf.addImage(image, "PNG", marginX, marginY, canvasWidth, canvasHeight);
+      pdf.save("invoice");
+    });
+  }
 }
 </script>
 
@@ -212,6 +338,7 @@ export default class CreateInvoice extends Vue {
   display: flex;
   width: 100%;
 }
+
 .invoice-step {
 }
 
@@ -222,35 +349,44 @@ export default class CreateInvoice extends Vue {
 .invoice-order-list {
   margin-top: 1.2rem;
   padding: 0.8rem;
+
   .line-item {
     display: flex;
     border-bottom: 1px dashed #ccc;
     padding: 0.8rem;
   }
+
   .item-col {
     flex-grow: 1;
   }
 }
+
 .invoice-item-actions {
   display: flex;
 }
+
 .price-pre-tax {
   font-weight: bold;
 }
+
 .price-final {
   font-weight: bold;
   color: $solar-green;
 }
+
 .due {
   font-weight: bold;
 }
+
 .invoice-header {
   width: 100%;
   margin-bottom: 1.2rem;
 }
+
 .invoice-logo {
   padding-top: 1.4rem;
   text-align: center;
+
   img {
     width: 280px;
   }
