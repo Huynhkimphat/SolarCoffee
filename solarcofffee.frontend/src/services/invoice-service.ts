@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IInvoice } from "@/types/Invoice";
 import { IServiceResponse } from "@/types/ServiceResponse";
+import { IInventoryTimeline } from "@/types/InventoryGraph";
 
 /*
  * Invoice Service
@@ -17,6 +18,11 @@ export default class InvoiceService {
     invoice.createOn = now;
     invoice.updateOn = now;
     const result = await axios.post(`${this.API_URL}/order`,invoice);
+    return result.data;
+  }
+
+  async getSnapshotHistory() :Promise<IInventoryTimeline>{
+    const result:any=await axios.get(`${this.API_URL}/inventory/snapshot`);
     return result.data;
   }
 }
