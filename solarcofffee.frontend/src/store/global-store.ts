@@ -5,7 +5,7 @@ import InvoiceService from "@/services/invoice-service";
 class GlobalStore {
   snapshotTimeline: IInventoryTimeline = {
     productInventorySnapshots: [],
-    timeline: [],
+    timelines: [],
   };
   isTimelineBuilt = false;
 }
@@ -18,10 +18,13 @@ const actions = {
     const inventoryService = new InvoiceService();
     const res = await inventoryService.getSnapshotHistory();
 
+    console.log(':: assignSnapshots :: ',res)
+
     const timeline: IInventoryTimeline = {
       productInventorySnapshots: res.productInventorySnapshots,
-      timeline: res.timeline,
+      timelines: res.timelines,
     };
+    console.log(':: assignSnapshots :: timeline :: ',timeline.timelines)
 
     commit("SET_SNAPSHOT_TIMELINE", timeline);
     commit("SET_IS_TIMELINE_BUILT", true);

@@ -1,6 +1,6 @@
 export interface IInventoryTimeline {
   productInventorySnapshots: ISnapshot[];
-  timeline: Date[];
+  timelines: Date[];
 }
 export interface ISnapshot {
   productId: number;

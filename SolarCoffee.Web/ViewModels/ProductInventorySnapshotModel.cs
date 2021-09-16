@@ -1,7 +1,20 @@
-﻿namespace SolarCoffee.Web.ViewModels
+﻿using System;
+using System.Collections.Generic;
+
+namespace SolarCoffee.Web.ViewModels
 {
+    /// <summary>
+    /// Snapshot view model
+    /// </summary>
     public class ProductInventorySnapshotModel
     {
-        
+        public List<int> QuantityOnHand { get; set; }
+        public int  ProductId{get;set;}
+    }
+
+    public class SnapshotResponse
+    {
+        public List<ProductInventorySnapshotModel> ProductInventorySnapshots { get; set; }
+        public List<DateTime> Timelines { get; set; }
     }
 }
