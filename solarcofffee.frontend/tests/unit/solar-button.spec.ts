@@ -1,6 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import SolarButton from "@/components/SolarButton";
-
+import SolarButton from "@/components/SolarButton.vue";
 describe("SolarButton.vue", () => {
   it("displays text in default slot position", () => {
     const wrapper = shallowMount(SolarButton, {
